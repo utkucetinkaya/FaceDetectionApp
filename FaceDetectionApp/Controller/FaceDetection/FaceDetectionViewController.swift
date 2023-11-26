@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  FaceDetectionViewController.swift
 //  FaceDetectionApp
 //
 //  Created by Utku Çetinkaya on 26.11.2023.
@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 import Vision
 
-class MainViewController: UIViewController {
+final class FaceDetectionViewController: UIViewController {
 
     // MARK: - Variables
     private var drawings: [CAShapeLayer] = []
@@ -27,7 +27,8 @@ class MainViewController: UIViewController {
         showCameraFeed()
         
         getCameraFrames()
-        captureSession.stopRunning()
+        captureSession.startRunning()
+        setNavigationBar()
     }
     
     override func viewDidLayoutSubviews() {
@@ -36,7 +37,14 @@ class MainViewController: UIViewController {
         previewLayer.frame = view.frame
     }
     
-    // MARK: - Helper Functions
+    // MARK: - Set Navigation Bar
+    private func setNavigationBar() {
+        
+        if #available(iOS 16, *) {
+            navigationItem.style = .editor
+        }
+        navigationItem.title = NSLocalizedString("Face Detection", comment: "Camera view title")
+    }
     
     // MARK: - Add Camera
     private func addCameraInput() {
@@ -80,10 +88,10 @@ class MainViewController: UIViewController {
         let faceDetectionRequest = VNDetectFaceLandmarksRequest { vnRequest, error in
             DispatchQueue.main.async {
                 if let results = vnRequest.results as? [VNFaceObservation], results.count > 0 {
-                    // print("✅ Detected \(results.count) faces!")
+                    self.showToast(message: "✅ Detected \(results.count) faces!")
                     self.handleFaceDetectionResults(observedFaces: results)
                 } else {
-                    // print("❌ No face was detected")
+                    self.showToast(message: "❌ No face was detected")
                     self.clearDrawings()
                 }
             }
@@ -92,27 +100,35 @@ class MainViewController: UIViewController {
         let imageResultHandler = VNImageRequestHandler(cvPixelBuffer: image, orientation: .leftMirrored, options: [:])
         try? imageResultHandler.perform([faceDetectionRequest])
     }
-    
+
     // MARK: - Handle Face Detection
     private func handleFaceDetectionResults(observedFaces: [VNFaceObservation]) {
         clearDrawings()
-        
+
         // Bu işlev, tespit edilen yüzlerin çerçevelerini çizer.
         let facesBoundingBoxes: [CAShapeLayer] = observedFaces.map({ (observedFace: VNFaceObservation) -> CAShapeLayer in
-            
+
             let faceBoundingBoxOnScreen = previewLayer.layerRectConverted(fromMetadataOutputRect: observedFace.boundingBox)
             let faceBoundingBoxPath = CGPath(rect: faceBoundingBoxOnScreen, transform: nil)
             let faceBoundingBoxShape = CAShapeLayer()
-            
-            // Set properties of the box shape
+
+            // Box ozellikleri belirler
             faceBoundingBoxShape.path = faceBoundingBoxPath
             faceBoundingBoxShape.fillColor = UIColor.clear.cgColor
-            faceBoundingBoxShape.strokeColor = UIColor.green.cgColor
-            
+            faceBoundingBoxShape.strokeColor = UIColor.faceBoxColor.cgColor
+
+            // Animasyon ekler
+            let glowAnimation = CABasicAnimation(keyPath: "opacity")
+            glowAnimation.fromValue = 1.0
+            glowAnimation.toValue = 0.0
+            glowAnimation.autoreverses = true
+            glowAnimation.repeatCount = .infinity
+            glowAnimation.duration = 0.5
+            faceBoundingBoxShape.add(glowAnimation, forKey: "glow")
+
             return faceBoundingBoxShape
         })
-        
-        // Add boxes to the view layer and the array
+
         facesBoundingBoxes.forEach { faceBoundingBox in
             view.layer.addSublayer(faceBoundingBox)
             drawings = facesBoundingBoxes
@@ -127,7 +143,7 @@ class MainViewController: UIViewController {
 }
 
 // MARK: - AVCaptureVideoDataOutputSampleBufferDelegate
-extension MainViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+extension FaceDetectionViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         
