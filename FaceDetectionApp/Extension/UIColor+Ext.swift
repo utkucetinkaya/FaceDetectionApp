@@ -27,5 +27,4 @@ extension UIColor {
     static var textColor: UIColor {
         UIColor(named: "TextColor") ?? .tintColor
     }
-
 }

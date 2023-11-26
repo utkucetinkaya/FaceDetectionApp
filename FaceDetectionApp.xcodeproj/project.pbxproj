@@ -17,6 +17,8 @@
 		B89895492B12AC4900B86C0C /* FaceDetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89895472B12AC4900B86C0C /* FaceDetectionViewController.swift */; };
 		B898954A2B12AC4900B86C0C /* FaceDetectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B89895482B12AC4900B86C0C /* FaceDetectionViewController.xib */; };
 		B898954C2B12BA0A00B86C0C /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B898954B2B12BA0A00B86C0C /* UIViewController+Ext.swift */; };
+		B89895512B12CB1700B86C0C /* FaceDetectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89895502B12CB1700B86C0C /* FaceDetectionService.swift */; };
+		B89895532B12CC8700B86C0C /* FaceDetectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89895522B12CC8700B86C0C /* FaceDetectionViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		B89895472B12AC4900B86C0C /* FaceDetectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceDetectionViewController.swift; sourceTree = "<group>"; };
 		B89895482B12AC4900B86C0C /* FaceDetectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FaceDetectionViewController.xib; sourceTree = "<group>"; };
 		B898954B2B12BA0A00B86C0C /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
+		B89895502B12CB1700B86C0C /* FaceDetectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceDetectionService.swift; sourceTree = "<group>"; };
+		B89895522B12CC8700B86C0C /* FaceDetectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceDetectionViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				B89895422B12AAE700B86C0C /* Extension */,
-				B898953A2B12A3B500B86C0C /* Controller */,
+				B898953A2B12A3B500B86C0C /* Module */,
 				B898953C2B12A3C000B86C0C /* Resources */,
 				B898953B2B12A3BC00B86C0C /* App */,
 				B898953D2B12A3C500B86C0C /* Storyboard */,
@@ -74,13 +78,13 @@
 			path = FaceDetectionApp;
 			sourceTree = "<group>";
 		};
-		B898953A2B12A3B500B86C0C /* Controller */ = {
+		B898953A2B12A3B500B86C0C /* Module */ = {
 			isa = PBXGroup;
 			children = (
 				B89895462B12AC2F00B86C0C /* FaceDetection */,
 				B89895452B12AC1500B86C0C /* Main */,
 			);
-			path = Controller;
+			path = Module;
 			sourceTree = "<group>";
 		};
 		B898953B2B12A3BC00B86C0C /* App */ = {
@@ -129,10 +133,36 @@
 		B89895462B12AC2F00B86C0C /* FaceDetection */ = {
 			isa = PBXGroup;
 			children = (
+				B898954F2B12CAD500B86C0C /* Service */,
+				B898954E2B12CACB00B86C0C /* Controller */,
+				B898954D2B12CAC400B86C0C /* ViewModel */,
+			);
+			path = FaceDetection;
+			sourceTree = "<group>";
+		};
+		B898954D2B12CAC400B86C0C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B89895522B12CC8700B86C0C /* FaceDetectionViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B898954E2B12CACB00B86C0C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
 				B89895472B12AC4900B86C0C /* FaceDetectionViewController.swift */,
 				B89895482B12AC4900B86C0C /* FaceDetectionViewController.xib */,
 			);
-			path = FaceDetection;
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		B898954F2B12CAD500B86C0C /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				B89895502B12CB1700B86C0C /* FaceDetectionService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,8 +238,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B89895272B124B9700B86C0C /* AppDelegate.swift in Sources */,
+				B89895532B12CC8700B86C0C /* FaceDetectionViewModel.swift in Sources */,
 				B89895442B12AAF400B86C0C /* UIColor+Ext.swift in Sources */,
 				B898954C2B12BA0A00B86C0C /* UIViewController+Ext.swift in Sources */,
+				B89895512B12CB1700B86C0C /* FaceDetectionService.swift in Sources */,
 				B89895292B124B9700B86C0C /* SceneDelegate.swift in Sources */,
 				B89895402B12A3E900B86C0C /* MainViewController.swift in Sources */,
 				B89895492B12AC4900B86C0C /* FaceDetectionViewController.swift in Sources */,
