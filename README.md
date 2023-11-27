@@ -31,7 +31,9 @@ If you would like to contribute to the project, please follow the steps below:
 5. Create a new Pull Request.
 
 ## Video
-https://github.com/utkucetinkaya/FaceDetectionApp/assets/61903359/ef979aab-fd77-450a-b092-9a05c222b1a1
+
+https://github.com/utkucetinkaya/FaceDetectionApp/assets/61903359/82e95132-4fa7-479f-97cc-ec391eb50f08
+
 
 
 
